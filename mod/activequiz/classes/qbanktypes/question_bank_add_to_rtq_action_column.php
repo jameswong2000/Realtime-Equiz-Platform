@@ -30,7 +30,7 @@ class question_bank_add_to_rtq_action_column extends \core_question\bank\action_
 
     protected $stradd;
 
-    public function init() {
+    public function init(): void {
         parent::init();
         $this->stradd = get_string('addtoquiz', 'activequiz');
     }
@@ -46,7 +46,7 @@ class question_bank_add_to_rtq_action_column extends \core_question\bank\action_
         $this->print_icon('t/add', $this->stradd, $this->qbank->add_to_rtq_url($question->id));
     }
 
-    public function get_required_fields() {
+    public function get_required_fields(): array {
         return array('q.id');
     }
 

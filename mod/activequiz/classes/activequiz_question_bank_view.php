@@ -36,7 +36,7 @@ class activequiz_question_bank_view extends \core_question\bank\view {
      *
      * @return array
      */
-    protected function wanted_columns() {
+    protected function wanted_columns(): array {
 
         $defaultqbankcolums = array(
             'question_bank_add_to_rtq_action_column',
@@ -80,27 +80,28 @@ class activequiz_question_bank_view extends \core_question\bank\view {
      * category      Chooses the category
      * displayoptions Sets display options
      */
-    public function display($tabname, $page, $perpage, $cat,
-                            $recurse, $showhidden, $showquestiontext) {
+    public function display($pagevars, $tabname): void {
         global $PAGE, $OUTPUT;
 
-        if ($this->process_actions_needing_ui()) {
-            return;
+        $page = $pagevars['qpage'];
+        $perpage = $pagevars['qperpage'];
+        $cat = $pagevars['cat'];
+        $recurse = $pagevars['recurse'];
+        $showhidden = $pagevars['showhidden'];
+        $showquestiontext = $pagevars['qbshowtext'];
+        $tagids = [];
+        if (!empty($pagevars['qtagids'])) {
+            $tagids = $pagevars['qtagids'];
         }
+
         $editcontexts = $this->contexts->having_one_edit_tab_cap($tabname);
-        // Category selection form.
-        echo $OUTPUT->heading(get_string('questionbank', 'question'), 2);
-        array_unshift($this->searchconditions, new \core_question\bank\search\hidden_condition(!$showhidden));
-        array_unshift($this->searchconditions, new \core_question\bank\search\category_condition(
-            $cat, $recurse, $editcontexts, $this->baseurl, $this->course));
-        array_unshift($this->searchconditions, new activequiz_disabled_condition());
-        $this->display_options_form($showquestiontext, '/mod/activequiz/edit.php');
+
+        // Show the filters and search options.
+        $this->wanted_filters($cat, $tagids, $showhidden, $recurse, $editcontexts, $showquestiontext);
 
         // Continues with list of questions.
-        $this->display_question_list($this->contexts->having_one_edit_tab_cap($tabname),
-            $this->baseurl, $cat, $this->cm,
-            null, $page, $perpage, $showhidden, $showquestiontext,
-            $this->contexts->having_cap('moodle/question:add'));
+        $this->display_question_list($this->baseurl, $cat, null, $page, $perpage,
+                                        $this->contexts->having_cap('moodle/question:add'));
     }
 
 
@@ -131,7 +132,7 @@ class activequiz_question_bank_view extends \core_question\bank\view {
      * @param $canadd
      * @throws \coding_exception
      */
-    protected function create_new_question_form($category, $canadd) {
+    protected function create_new_question_form($category, $canadd): void {
         global $CFG;
         echo '<div class="createnewquestion">';
         if ($canadd) {

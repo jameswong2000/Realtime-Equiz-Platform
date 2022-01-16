@@ -252,8 +252,7 @@ class edit {
         ob_start(); // capture question bank display in buffer to have the renderer render output.
 
         $questionbank = new \mod_activequiz\activequiz_question_bank_view($this->contexts, $this->pageurl, $this->activequiz->getCourse(), $this->activequiz->getCM());
-        $questionbank->display('editq', $qpage, $qperpage, $this->pagevars['cat'], true, true, true);
-
+        $questionbank->display($this->pagevars, 'editq');
         return ob_get_clean();
     }
 
