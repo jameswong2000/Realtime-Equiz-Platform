@@ -18,8 +18,6 @@ namespace mod_activequiz;
 
 defined('MOODLE_INTERNAL') || die();
 
-use mod_activequiz\qbanktypes\question_bank_add_to_rtq_action_column;
-
 /**
  * Subclass of the question bank view class to change the way it works/looks
  *
@@ -66,44 +64,6 @@ class activequiz_question_bank_view extends \core_question\bank\view {
 
         return $this->requiredcolumns;
     }
-
-
-    /**
-     * Shows the question bank editing interface.
-     *
-     * The function also processes a number of actions:
-     *
-     * Actions affecting the question pool:
-     * move           Moves a question to a different category
-     * deleteselected Deletes the selected questions from the category
-     * Other actions:
-     * category      Chooses the category
-     * displayoptions Sets display options
-     */
-    public function display($pagevars, $tabname): void {
-        global $PAGE, $OUTPUT;
-
-        $page = $pagevars['qpage'];
-        $perpage = $pagevars['qperpage'];
-        $cat = $pagevars['cat'];
-        $recurse = $pagevars['recurse'];
-        $showhidden = $pagevars['showhidden'];
-        $showquestiontext = $pagevars['qbshowtext'];
-        $tagids = [];
-        if (!empty($pagevars['qtagids'])) {
-            $tagids = $pagevars['qtagids'];
-        }
-
-        $editcontexts = $this->contexts->having_one_edit_tab_cap($tabname);
-
-        // Show the filters and search options.
-        $this->wanted_filters($cat, $tagids, $showhidden, $recurse, $editcontexts, $showquestiontext);
-
-        // Continues with list of questions.
-        $this->display_question_list($this->baseurl, $cat, null, $page, $perpage,
-                                        $this->contexts->having_cap('moodle/question:add'));
-    }
-
 
     /**
      * generate an add to realtime quiz url so that when clicked the question will be added to the quiz
