@@ -217,6 +217,20 @@
     background: -o-linear-gradient(#fff, #999);
 }
 
+#jumptoquestion-dialog {
+    text-align: center;
+}
+
+#jumptoquestion-dialog > div{
+    background: #fff;
+}
+
+#jumptoquestion-dialog button{
+    background-color: #0f6fc5;
+    border-color: #0f6fc5;
+    border-radius: 8px;
+}
+
 .jumptoquestionclose {
     background: #606061;
     color: #FFFFFF;

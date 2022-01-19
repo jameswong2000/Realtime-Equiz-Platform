@@ -224,8 +224,6 @@ class mod_activequiz_renderer extends plugin_renderer_base {
             return; // return early if there are no closed sessions
         }
 
-        echo html_writer::start_div('activequizbox');
-
         // show overall grade
 
 
@@ -516,6 +514,9 @@ class mod_activequiz_renderer extends plugin_renderer_base {
             $qnum++;
         }
         $output .= html_writer::end_tag('select');
+
+        $output .= html_writer::empty_tag('br');
+        $output .= html_writer::empty_tag('br');
 
         $output .= html_writer::tag('button', get_string('jumptoquestion', 'activequiz'), array('onclick' => 'activequiz.jumpto_question()'));
         $output .= html_writer::end_div();
