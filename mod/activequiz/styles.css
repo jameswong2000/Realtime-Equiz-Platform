@@ -226,9 +226,8 @@
 }
 
 #jumptoquestion-dialog button{
-    background-color: #0f6fc5;
-    border-color: #0f6fc5;
     border-radius: 8px;
+    color: black;
 }
 
 .jumptoquestionclose {
