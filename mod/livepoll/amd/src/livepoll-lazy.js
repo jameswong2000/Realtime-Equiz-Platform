@@ -67,6 +67,12 @@ define(["jquery", "core/log", "core/templates"],
                 controlRef.set(closeVoting);
             });
 
+            $("#livepoll_showpollingresult").on("change", function() {
+                var showpollingresult = this.checked;
+                var controlRef = self.database.ref("polls/" + self.pollKey + "/controls/showpollingresult");
+                controlRef.set(showpollingresult);
+            });
+
             $("#livepoll_highlightanswer").on("change", function() {
                 var higlightAnswer = this.checked;
                 var controlRef = self.database.ref("polls/" + self.pollKey + "/controls/higlightAnswer");
@@ -120,7 +126,9 @@ define(["jquery", "core/log", "core/templates"],
                             .addClass("btn-success").removeClass("btn-primary");
                     }
                 });
-                updateVoteUI();
+                if(self.showpollingresult){
+                    updateVoteUI();
+                }
             });
         };
 
@@ -134,9 +142,11 @@ define(["jquery", "core/log", "core/templates"],
                 var controlStatus = controlsSnapshot.val();
 
                 self.closeVoting = !!controlStatus.closeVoting;
+                self.showpollingresult = !!controlStatus.showpollingresult;
                 self.higlightAnswer = !!controlStatus.higlightAnswer;
 
                 $("#livepoll_closevoting").prop('checked', self.closeVoting);
+                $("#livepoll_showpollingresult").prop('checked', self.showpollingresult);
                 $("#livepoll_highlightanswer").prop('checked', self.higlightAnswer);
 
                 $(".livepoll-votebtn").toggleClass("disabled", self.closeVoting);
@@ -158,6 +168,14 @@ define(["jquery", "core/log", "core/templates"],
                         $(".livepoll-closed-voting-msg > .alert")
                             .alert("close");
                     }
+                }
+
+                if (self.showpollingresult) {
+                    updateVoteCount();
+                }
+                else {
+                    resetVotes();
+                    updateVoteUI();
                 }
 
                 $(".livepoll-votebtn").removeClass("livepoll-answer-animation");
@@ -185,7 +203,9 @@ define(["jquery", "core/log", "core/templates"],
             controlsRef.on("child_changed", updateControls);
             controlsRef.on("child_removed", updateControls);
 
-            updateVoteUI();
+            if(self.showpollingresult){
+                updateVoteUI();
+            }
         };
 
         /**

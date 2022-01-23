@@ -67,6 +67,7 @@ $string['totalvotes'] = 'Número total de votos: ';
 
 $string['votecontrol'] = 'Control de votos';
 $string['control:closevoting'] = 'Cerrar votación';
+$string['control:showpollingresult'] = 'Mostrar resultado de sondeo';
 $string['control:highlightanswer'] = 'Mostrar respuesta';
 $string['control:votinghasclosed'] = 'La votación ha sido cerrada por el moderador.';
 $string['control:votinghasclosed:close'] = 'Cerrar mensaje';

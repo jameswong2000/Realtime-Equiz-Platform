@@ -116,6 +116,7 @@ if ($canvote) {
 if ($cancontrol) {
     $controls = [
         'closevoting',
+        'showpollingresult',
         'highlightanswer',
     ];
     $controlopts = [];
