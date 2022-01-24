@@ -84,3 +84,8 @@ input:checked + .livepoll-slider:before {
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
+
+.time-limit-msg {
+    color: #f50e06;
+    font-weight: bold;
+}

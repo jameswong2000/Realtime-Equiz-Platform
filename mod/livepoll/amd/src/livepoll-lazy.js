@@ -24,6 +24,37 @@ define(["jquery", "core/log", "core/templates"],
     function($, Log, templates) {
 
         var self = this;
+        var pollingtime = 0;
+        var timerEvent;
+
+        //timer for countdown
+        var timer = function(timelimit) {
+            if (timelimit <= 0) {
+                return;
+            }
+
+            if(!timerEvent) {
+                timerEvent = setInterval(function() {       
+                    $(".time-limit-countdown").html(timelimit--);
+            
+                    if (timelimit < 0) {
+                        clearInterval(timerEvent);
+                        timerEvent = null;
+                        $(".time-limit-countdown").html("Time is UP!!!");
+                        //trigger stop voting event
+                        $("#livepoll_closevoting").prop('checked', true);
+                        $("#livepoll_closevoting").trigger("change");
+                    }
+                }, 1000);
+            }
+            
+        };
+
+        var resetTimer = function() {
+            clearInterval(timerEvent);
+            timerEvent = null;
+            $(".time-limit-countdown").html(pollingtime);
+        }
 
         /**
          * Resets the vote count for each option to 0.
@@ -162,12 +193,16 @@ define(["jquery", "core/log", "core/templates"],
                                 .alert().removeClass("hide").addClass("show");
                         });
                     }
+                    if(timerEvent) {
+                        resetTimer();
+                    }                 
                 } else {
                     addClickListeners();
                     if ($(".livepoll-closed-voting-msg > .alert").length > 0) {
                         $(".livepoll-closed-voting-msg > .alert")
                             .alert("close");
                     }
+                    timer(pollingtime);
                 }
 
                 if (self.showpollingresult) {
@@ -334,6 +369,14 @@ define(["jquery", "core/log", "core/templates"],
                 }
                 self.firebase = firebase;
                 initFirebase();
+
+                //close voting as default
+                var controlRef = self.database.ref("polls/" + self.pollKey + "/controls/closeVoting");
+                controlRef.set(true);
+                $("#livepoll_closevoting").prop('checked', true);
+
+                pollingtime = parseInt($(".time-limit-countdown").html());
+
             });
         };
 

@@ -90,6 +90,8 @@ echo $OUTPUT->render_from_template('mod_livepoll/header',
     (object) [
         'name' => $moduleinstance->name,
         'intro' => $moduleinstance->intro,
+        'pollingtimemsg'=> get_string('pollingtime', 'mod_livepoll', strtoupper($optkey)),
+        'pollingtime' => $moduleinstance->pollingtime
     ]);
 
 // Performing a rendering strategy.

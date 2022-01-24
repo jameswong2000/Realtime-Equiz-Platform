@@ -99,6 +99,9 @@ class mod_livepoll_mod_form extends moodleform_mod {
         ];
         $mform->addElement('select', 'resultrendering', get_string('resultrendering', 'mod_livepoll'), $strategies);
         $mform->addRule('resultrendering', null, 'required', null, 'client');
+        $mform->addElement('text', 'pollingtime', get_string('pollingtime', 'mod_livepoll'), $strategies);
+        $mform->addRule('pollingtime', null, 'positiveint', null, 'client');
+        $mform->addRule('pollingtime', null, 'maxlength', 3, 'client');
 
         // Add standard elements.
         $this->standard_coursemodule_elements();

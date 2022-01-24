@@ -64,6 +64,7 @@ $string['doughnutchart_text_result'] = 'Gráfica de dona y texto';
 $string['polarareachart_text_result'] = 'Gráfica de área polar y texto';
 $string['radarchart_text_result'] = 'Gráfica de radar y texto';
 $string['totalvotes'] = 'Número total de votos: ';
+$string['pollingtime'] = 'Límite de tiempo (segundos): ';
 
 $string['votecontrol'] = 'Control de votos';
 $string['control:closevoting'] = 'Cerrar votación';
