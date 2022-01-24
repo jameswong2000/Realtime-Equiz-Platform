@@ -99,9 +99,9 @@ define(["jquery", "core/log", "core/templates"],
             });
 
             $("#livepoll_showpollingresult").on("change", function() {
-                var showpollingresult = this.checked;
-                var controlRef = self.database.ref("polls/" + self.pollKey + "/controls/showpollingresult");
-                controlRef.set(showpollingresult);
+                var showPollingResult = this.checked;
+                var controlRef = self.database.ref("polls/" + self.pollKey + "/controls/showPollingResult");
+                controlRef.set(showPollingResult);
             });
 
             $("#livepoll_highlightanswer").on("change", function() {
@@ -157,7 +157,7 @@ define(["jquery", "core/log", "core/templates"],
                             .addClass("btn-success").removeClass("btn-primary");
                     }
                 });
-                if(self.showpollingresult){
+                if(self.showPollingResult){
                     updateVoteUI();
                 }
             });
@@ -173,11 +173,11 @@ define(["jquery", "core/log", "core/templates"],
                 var controlStatus = controlsSnapshot.val();
 
                 self.closeVoting = !!controlStatus.closeVoting;
-                self.showpollingresult = !!controlStatus.showpollingresult;
+                self.showPollingResult = !!controlStatus.showPollingResult;
                 self.higlightAnswer = !!controlStatus.higlightAnswer;
 
                 $("#livepoll_closevoting").prop('checked', self.closeVoting);
-                $("#livepoll_showpollingresult").prop('checked', self.showpollingresult);
+                $("#livepoll_showpollingresult").prop('checked', self.showPollingResult);
                 $("#livepoll_highlightanswer").prop('checked', self.higlightAnswer);
 
                 $(".livepoll-votebtn").toggleClass("disabled", self.closeVoting);
@@ -205,7 +205,7 @@ define(["jquery", "core/log", "core/templates"],
                     timer(pollingtime);
                 }
 
-                if (self.showpollingresult) {
+                if (self.showPollingResult) {
                     updateVoteCount();
                 }
                 else {
