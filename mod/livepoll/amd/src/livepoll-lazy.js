@@ -370,10 +370,13 @@ define(["jquery", "core/log", "core/templates"],
                 self.firebase = firebase;
                 initFirebase();
 
-                //close voting as default
-                var controlRef = self.database.ref("polls/" + self.pollKey + "/controls/closeVoting");
-                controlRef.set(true);
-                $("#livepoll_closevoting").prop('checked', true);
+                //only perform when teacher to the page
+                if($(".livepoll-switch").length > 0) {
+                    //close voting as default
+                    var controlRef = self.database.ref("polls/" + self.pollKey + "/controls/closeVoting");
+                    controlRef.set(true);
+                    $("#livepoll_closevoting").prop('checked', true);
+                }
 
                 pollingtime = parseInt($(".time-limit-countdown").html());
 
