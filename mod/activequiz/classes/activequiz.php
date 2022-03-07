@@ -116,6 +116,7 @@ class activequiz {
         $this->pagevars = $pagevars;
 
         $this->context = \context_module::instance($cm->id);
+        $PAGE->add_body_class('limitedwidth');
         $PAGE->set_context($this->context);
 
         $this->renderer = $PAGE->get_renderer('mod_activequiz', $renderer_subtype);
