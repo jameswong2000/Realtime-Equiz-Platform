@@ -41,6 +41,7 @@ class activequiz_question_bank_view extends \core_question\bank\view {
             'checkbox_column',
             'question_type_column',
             'question_name_column',
+            'edit_action_column',
             'preview_action_column',
         );
 
