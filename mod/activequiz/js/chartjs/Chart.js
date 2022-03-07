@@ -1936,7 +1936,7 @@
 
 
     if (amd) {
-        define(function () {
+        define('activequiz/js/chart', ['jquery', 'mod/activequiz/js/chart'], function () {
             return Chart;
         });
     } else if (typeof module === 'object' && module.exports) {
